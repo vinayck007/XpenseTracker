@@ -43,10 +43,11 @@ app.use(compression());
 // app.use(bodyParser.urlencoded());  ////this is for handling forms
 app.use(express.json());  //this is for handling jsons
 
-app.use('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/Login/login.html'));
+app.get('/', (req, res) => {
+    res.send('<h1>Welcome to my website!</h1>');
     });
-    
+
+console.log("request has arrived");
 
 app.use('/user', userRoutes)
 
