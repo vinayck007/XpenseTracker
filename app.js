@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
     res.send('<h1>Welcome to my website!</h1>');
     });
 
-console.log("remove xtra logs");
+console.log("remove xtra logs2");
 
 app.use('/user', userRoutes)
 
