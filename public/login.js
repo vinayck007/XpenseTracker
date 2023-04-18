@@ -1,3 +1,9 @@
+const signupbtn = document.getElementById('signup');
+
+signupbtn.addEventListener('click', async event => {
+  window.location.href="./signup.html"
+})
+
 const loginForm = document.getElementById('login-form');
   const email = document.getElementById('email');
   const password = document.getElementById('password');
@@ -22,3 +28,4 @@ const loginForm = document.getElementById('login-form');
 function forgotpassword() {
   window.location.href = "../forgotpassword.html"
 }
+
