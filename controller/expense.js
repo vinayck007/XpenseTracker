@@ -1,5 +1,5 @@
 const Expense = require('../models/expenses');
-const User = require('../models/users');
+const User = require('../models/user');
 const sequelize = require('../util/database');
 const jwt = require('jsonwebtoken')
 const AWS = require('aws-sdk');
@@ -10,7 +10,7 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
-const addexpense = async (req, res) => {
+const addExpense = async (req, res) => {
     const { expenseamount, description, category } = req.body;
     console.log(req.body)
     const t = await sequelize.transaction();
@@ -82,7 +82,7 @@ const addexpense = async (req, res) => {
         }
         };
 
-        const getexpenses = async (req, res) => {
+        const showExpenses = async (req, res) => {
             let { page, limit } = req.query;
             page = parseInt(page) || 1; // default to page 1 if page parameter is missing or not a number
             limit = parseInt(limit) || 10; // default to 10
@@ -108,7 +108,7 @@ const addexpense = async (req, res) => {
                 }
             };
 
-const deleteexpense = (req, res) => {
+const deleteExpense = (req, res) => {
     const expenseid = req.params.expenseid;
     Expense.destroy({where: { id: expenseid }}).then(() => {
         return res.status(204).json({ success: true, message: "Deleted Successfuly"})
@@ -143,8 +143,8 @@ const downloadExpenses = async (req, res) => {
     };
 
 module.exports = {
-    deleteexpense,
-    getexpenses,
-    addexpense,
+    deleteExpense,
+    showExpenses,
+    addExpense,
     downloadExpenses
 }

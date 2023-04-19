@@ -8,7 +8,7 @@ var cors = require('cors')
 
 const https = require('https');
 const sequelize = require('./util/database');
-const User = require('./models/users');
+const User = require('./models/user');
 const Expense = require('./models/expenses');
 const Order = require('./models/orders');
 const Forgotpassword = require('./models/forgotpassword');
@@ -18,10 +18,13 @@ const compression = require('compression');
 
 
 const userRoutes = require('./routes/user')
+const expenseRoutes = require('./routes/expense')
 const purchaseRoutes = require('./routes/purchase')
 const resetPasswordRoutes = require('./routes/resetpassword')
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(helmet({
     contentSecurityPolicy: {
@@ -44,11 +47,14 @@ app.use(compression());
 app.use(express.json());  //this is for handling jsons
 
 app.get('/', (req, res) => {
-    res.send('<h1>Welcome to my website!</h1>');
-  });
-  
+    res.sendFile(path.join(__dirname, "./public/login.html"));
+    });
+
+console.log("remove xtra logs2");
 
 app.use('/user', userRoutes)
+
+app.use('/expenses', expenseRoutes)
 
 app.use('/purchase', purchaseRoutes)
 
@@ -65,7 +71,7 @@ Forgotpassword.belongsTo(User);
 
 sequelize.sync()
     .then(() => {
-       app.listen(3000);
+        app.listen(3000);
     })
     .catch(err => {
         console.log(err);

@@ -1,7 +1,7 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/users');
+const User = require('../models/user');
 
  const signup = (req, res)=>{
     const { name, email, password } = req.body;
@@ -39,7 +39,8 @@ const login = (req, res) => {
                 }
                 if (response){
                     console.log(JSON.stringify(user))
-                    return res.status(200).json({success: true, token: generateAccessToken(user[0].id, user[0].name, user[0].ispremiumuser)});
+                    return res.status(200).json({success: true, token: generateAccessToken(user[0].id, user[0].name, user[0].isPremium)});
+                  
                 // Send JWT
                 } else {
                 // response is OutgoingMessage object that server response http request

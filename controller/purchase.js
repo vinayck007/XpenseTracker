@@ -1,4 +1,4 @@
-const User = require('../models/users')
+const User = require('../models/user')
 const Razorpay = require('razorpay');
 const Order = require('../models/orders')
 
@@ -54,6 +54,31 @@ const purchasepremium =async (req, res) => {
 const leaderboard = async (req, res) => {
 
   try {
+
+    const calculateTotalExpense = async () => {
+      try {
+        const users = await User.findAll({
+          include: [
+            {
+              model: Expense,
+              attributes: [[sequelize.fn('SUM', sequelize.col('amount')), 'total']],
+            },
+          ],
+          group: ['User.id'],
+        });
+    
+        users.forEach(async (user) => {
+          await User.update(
+            { totalexpense: user.Expenses[0].dataValues.total },
+            { where: { id: user.id } }
+          );
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    
+    calculateTotalExpense();
 
     const users = await User.findAll({
       attributes: ['name', 'totalExpense'],
