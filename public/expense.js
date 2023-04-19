@@ -1,3 +1,4 @@
+const token = localStorage.getItem('token');
 function addExpense(e) {
   e.preventDefault();
 
@@ -120,8 +121,7 @@ function showLeaderBoard() {
   leaderboardBtn.style.display = 'block';
   leaderboardBtn.addEventListener('click', async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/premium/leaderboard', {headers: {"Authorization": token}}); 
+      const response = await axios.get('http://localhost:3000/purchase/leaderboard', {headers: {"Authorization": token}}); 
       console.log(response.data);
 
       // Create an unordered list element to display the data
@@ -152,6 +152,7 @@ function showLeaderBoard() {
 }
 
 function parseJwt (token) {
+ 
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
@@ -164,8 +165,8 @@ function parseJwt (token) {
 window.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token')
   const decodeToken = parseJwt(token)
-  console.log(decodeToken)
   const isPremium = decodeToken.isPremium;
+  console.log(isPremium)
   if(isPremium) {
     showPremium();
     showLeaderBoard();

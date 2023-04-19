@@ -14,7 +14,7 @@ router.post('/addexpense', async (req, res, next) => {
   }
   });
 
-  router.get('/getexpenses', userAuthentication.authenticate, expenseController.showExpense);
+  router.get('/getexpenses', userAuthentication.authenticate, expenseController.showExpenses);
 
     router.delete('/delete/:expenseid', async (req, res, next) => {
       try {

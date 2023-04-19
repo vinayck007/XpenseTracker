@@ -14,10 +14,9 @@ const loginForm = document.getElementById('login-form');
       email: email.value,
       password: password.value
     });
-    const isPremium = response.data.isPremium;
-    const token = response.data.token;
-    localStorage.setItem('token', token);
-    localStorage.setItem('isPremium', isPremium);
+    
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('userDetails', JSON.stringify(response.data.user))
     window.location.href = "http://localhost:3000/expense.html";
     
   } catch (error) {

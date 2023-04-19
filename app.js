@@ -18,6 +18,7 @@ const compression = require('compression');
 
 
 const userRoutes = require('./routes/user')
+const expenseRoutes = require('./routes/expense')
 const purchaseRoutes = require('./routes/purchase')
 const resetPasswordRoutes = require('./routes/resetpassword')
 
@@ -52,6 +53,8 @@ app.get('/', (req, res) => {
 console.log("remove xtra logs2");
 
 app.use('/user', userRoutes)
+
+app.use('/expenses', expenseRoutes)
 
 app.use('/purchase', purchaseRoutes)
 

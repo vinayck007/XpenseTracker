@@ -39,7 +39,8 @@ const login = (req, res) => {
                 }
                 if (response){
                     console.log(JSON.stringify(user))
-                    return res.status(200).json({success: true, token: generateAccessToken(user[0].id, user[0].name, user[0].ispremiumuser)});
+                    return res.status(200).json({success: true, token: generateAccessToken(user[0].id, user[0].name, user[0].isPremium)});
+                  
                 // Send JWT
                 } else {
                 // response is OutgoingMessage object that server response http request
